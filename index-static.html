@@ -1,0 +1,2545 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pixeltrio Wedding</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --brand-dark: #0a0a0b;
+        --brand-card: #141416;
+        --brand-gold: #c5a059;
+        --brand-gray: #e5e5e5;
+        --muted: rgba(255, 255, 255, 0.4);
+        --border: rgba(255, 255, 255, 0.08);
+        --serif: "Playfair Display", serif;
+        --sans: "Inter", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        background: var(--brand-dark);
+        color: var(--brand-gray);
+        font-family: var(--sans);
+        -webkit-font-smoothing: antialiased;
+      }
+
+      ::selection {
+        background: var(--brand-gold);
+        color: #000;
+      }
+
+      body.modal-open {
+        overflow: hidden;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      button,
+      input,
+      textarea {
+        font: inherit;
+      }
+
+      button {
+        cursor: pointer;
+      }
+
+      img,
+      video {
+        display: block;
+        max-width: 100%;
+      }
+
+      .site {
+        min-height: 100vh;
+      }
+
+      .container {
+        width: min(100%, 1920px);
+        margin: 0 auto;
+        padding: 0 24px;
+      }
+
+      .section {
+        padding: 80px 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+      }
+
+      .eyebrow {
+        display: block;
+        margin-bottom: 24px;
+        color: var(--brand-gold);
+        font-family: var(--serif);
+        font-size: 20px;
+        font-style: italic;
+        letter-spacing: 0;
+      }
+
+      .display {
+        margin: 0 0 28px;
+        color: #fff;
+        font-family: var(--serif);
+        font-size: clamp(48px, 8vw, 112px);
+        font-weight: 400;
+        line-height: 0.9;
+      }
+
+      .display.small {
+        font-size: clamp(40px, 6vw, 72px);
+      }
+
+      .italic {
+        font-style: italic;
+        color: rgba(255, 255, 255, 0.9);
+      }
+
+      .micro {
+        color: rgba(255, 255, 255, 0.32);
+        font-size: 9px;
+        font-weight: 600;
+        letter-spacing: 0.3em;
+        line-height: 1.9;
+        text-transform: uppercase;
+      }
+
+      .muted-copy {
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.8;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        min-height: 42px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        background: transparent;
+        color: #fff;
+        padding: 12px 24px;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+      }
+
+      .btn:hover,
+      .btn:focus-visible {
+        border-color: #fff;
+        background: #fff;
+        color: #000;
+      }
+
+      .btn.gold {
+        border-color: var(--brand-gold);
+        color: var(--brand-gold);
+      }
+
+      .btn.gold:hover,
+      .btn.gold:focus-visible {
+        border-color: #fff;
+        color: #000;
+      }
+
+      .btn.whatsapp {
+        border-color: rgba(37, 211, 102, 0.72);
+        color: #25d366;
+      }
+
+      .btn.whatsapp:hover,
+      .btn.whatsapp:focus-visible {
+        border-color: #25d366;
+        background: #25d366;
+        color: #06140b;
+      }
+
+      .btn.gmail {
+        border-color: rgba(234, 67, 53, 0.72);
+        color: #ea4335;
+      }
+
+      .btn.gmail:hover,
+      .btn.gmail:focus-visible {
+        border-color: #ea4335;
+        background: #ea4335;
+        color: #fff;
+      }
+
+      .floating-contacts {
+        position: fixed;
+        z-index: 120;
+        right: 18px;
+        top: 50%;
+        display: grid;
+        gap: 10px;
+        transform: translateY(-50%);
+      }
+
+      .floating-contacts a {
+        display: grid;
+        width: 44px;
+        height: 44px;
+        place-items: center;
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        background: rgba(10, 10, 11, 0.78);
+        color: var(--brand-gold);
+        backdrop-filter: blur(14px);
+        transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+      }
+
+      .floating-contacts a:hover,
+      .floating-contacts a:focus-visible {
+        border-color: #fff;
+        background: #fff;
+        color: #000;
+        transform: translateX(-3px);
+      }
+
+      .floating-contacts .whatsapp-link {
+        color: #25d366;
+      }
+
+      .floating-contacts .gmail-link {
+        color: #ea4335;
+      }
+
+      .floating-contacts .instagram-link {
+        color: #e4405f;
+      }
+
+      .floating-contacts .facebook-link {
+        color: #1877f2;
+      }
+
+      .icon {
+        display: inline-flex;
+        width: 1em;
+        height: 1em;
+        flex: 0 0 auto;
+      }
+
+      .icon svg {
+        width: 100%;
+        height: 100%;
+        stroke: currentColor;
+      }
+
+      .icon svg[fill="currentColor"] {
+        stroke: none;
+      }
+
+      .logo-mark {
+        display: block;
+        width: 54px;
+        height: 54px;
+        flex: 0 0 auto;
+        object-fit: contain;
+      }
+
+      .footer-brand .logo-mark {
+        width: 76px;
+        height: 76px;
+      }
+
+      .topbar {
+        position: sticky;
+        z-index: 50;
+        top: 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(10, 10, 11, 0.82);
+        backdrop-filter: blur(16px);
+      }
+
+      .topbar-inner {
+        display: flex;
+        width: min(100%, 1920px);
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+        margin: 0 auto;
+        padding: 24px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        border: 0;
+        background: transparent;
+        color: #fff;
+        padding: 0;
+      }
+
+      .brand-name {
+        font-size: 13px;
+        font-style: italic;
+        font-weight: 800;
+        letter-spacing: 0.3em;
+        line-height: 1.3;
+        text-transform: uppercase;
+      }
+
+      .nav {
+        display: none;
+        align-items: center;
+        gap: 34px;
+      }
+
+      .nav a,
+      .nav button {
+        border: 0;
+        background: transparent;
+        color: rgba(255, 255, 255, 0.5);
+        padding: 0 0 5px;
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        transition: color 0.3s ease;
+      }
+
+      .nav a:hover,
+      .nav button:hover {
+        color: #fff;
+      }
+
+      .nav .active {
+        border-bottom: 1px solid var(--brand-gold);
+        color: #fff;
+      }
+
+      .hero {
+        position: relative;
+        display: flex;
+        min-height: 600px;
+        height: 80vh;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        text-align: center;
+      }
+
+      .hero-video,
+      .hero-overlay {
+        position: absolute;
+        inset: 0;
+      }
+
+      .hero-video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: blur(18px);
+        opacity: 0.42;
+        transform: scale(1.08);
+      }
+
+      .hero-overlay {
+        background: linear-gradient(180deg, rgba(10, 10, 11, 0.78), rgba(10, 10, 11, 0.58) 48%, rgba(10, 10, 11, 0.88));
+      }
+
+      .hero-backdrop-title {
+        position: absolute;
+        z-index: 1;
+        left: 50%;
+        top: 45%;
+        width: min(92vw, 1400px);
+        color: rgba(255, 255, 255, 0.16);
+        filter: blur(1.8px);
+        font-family: var(--serif);
+        font-size: clamp(56px, 12vw, 180px);
+        font-style: italic;
+        font-weight: 400;
+        line-height: 0.9;
+        pointer-events: none;
+        text-transform: none;
+        transform: translate(-50%, -50%);
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 2;
+        display: grid;
+        width: min(100%, 1080px);
+        gap: 24px;
+        justify-items: center;
+        padding: 0 20px;
+        animation: rise-in 0.8s ease both;
+      }
+
+      .hero-media {
+        position: relative;
+        width: min(78vw, 820px);
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        background: #050505;
+        box-shadow: 0 32px 90px rgba(0, 0, 0, 0.52);
+      }
+
+      .hero-media video {
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        height: auto;
+        object-fit: cover;
+      }
+
+      .hero-sound {
+        position: absolute;
+        right: 14px;
+        bottom: 14px;
+        z-index: 2;
+        min-height: 38px;
+        border-color: rgba(255, 255, 255, 0.42);
+        background: rgba(10, 10, 11, 0.68);
+        backdrop-filter: blur(12px);
+        padding: 10px 14px;
+        letter-spacing: 0.14em;
+      }
+
+      .hero h1 {
+        margin: 0;
+        color: #fff;
+        font-family: var(--serif);
+        font-size: clamp(42px, 7vw, 86px);
+        font-weight: 400;
+        line-height: 0.9;
+      }
+
+      .hero p {
+        width: min(100%, 390px);
+        margin: 0 auto;
+        color: rgba(255, 255, 255, 0.42);
+        font-size: 15px;
+        line-height: 1.75;
+      }
+
+      .story-heading,
+      .gallery-heading {
+        margin-bottom: 64px;
+      }
+
+      .story-heading {
+        text-align: center;
+      }
+
+      .story-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 28px;
+      }
+
+      .story-card {
+        position: relative;
+        min-height: 600px;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        background: var(--brand-card);
+      }
+
+      .story-card video,
+      .film-card video {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: opacity 0.7s ease, transform 1s ease;
+      }
+
+      .story-card video {
+        opacity: 0.4;
+      }
+
+      .story-card:hover video {
+        opacity: 0.62;
+        transform: scale(1.1);
+      }
+
+      .story-info {
+        position: absolute;
+        inset: auto 0 0;
+        padding: 32px;
+        background: linear-gradient(to top, var(--brand-dark), rgba(10, 10, 11, 0.45), transparent);
+      }
+
+      .story-info h3,
+      .film-info h3,
+      .feature-text h4 {
+        margin: 0;
+        color: #fff;
+        font-family: var(--serif);
+        font-weight: 400;
+      }
+
+      .story-info h3,
+      .film-info h3 {
+        font-size: 30px;
+        font-style: italic;
+      }
+
+      .story-info p {
+        margin: 16px 0 0;
+        color: rgba(255, 255, 255, 0.42);
+        font-size: 10px;
+        letter-spacing: 0.12em;
+        line-height: 1.8;
+        opacity: 0;
+        text-transform: uppercase;
+        transform: translateY(16px);
+        transition: opacity 0.5s ease, transform 0.5s ease;
+      }
+
+      .story-card:hover .story-info p {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .gallery-head-row {
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+        margin-bottom: 56px;
+      }
+
+      .tabs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 18px 28px;
+        align-items: flex-end;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding-bottom: 16px;
+      }
+
+      .tab {
+        position: relative;
+        border: 0;
+        background: transparent;
+        color: rgba(255, 255, 255, 0.42);
+        padding: 0 0 10px;
+        font-size: 10px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        transition: color 0.3s ease;
+      }
+
+      .tab:hover,
+      .tab.active {
+        color: var(--brand-gold);
+      }
+
+      .tab.active::after {
+        position: absolute;
+        right: 0;
+        bottom: -17px;
+        left: 0;
+        height: 1px;
+        background: var(--brand-gold);
+        content: "";
+      }
+
+      .photo-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+      }
+
+      .photo-tile {
+        position: relative;
+        aspect-ratio: 3 / 4;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        background: var(--brand-card);
+        cursor: crosshair;
+      }
+
+      .photo-tile img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 1s ease;
+      }
+
+      .photo-tile:hover img {
+        transform: scale(1.1);
+      }
+
+      .photo-tile::after {
+        position: absolute;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        background: rgba(10, 10, 11, 0.42);
+        color: #fff;
+        content: "⛶";
+        font-size: 26px;
+        opacity: 0;
+        transition: opacity 0.5s ease;
+      }
+
+      .photo-tile:hover::after {
+        opacity: 1;
+      }
+
+      .cinematic-copy {
+        width: min(100%, 390px);
+      }
+
+      .film-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+
+      .film-card {
+        position: relative;
+        aspect-ratio: 16 / 9;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        background: var(--brand-card);
+      }
+
+      .film-card:hover video {
+        transform: scale(1.05);
+      }
+
+      .play-overlay {
+        position: absolute;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        background: rgba(10, 10, 11, 0.42);
+        opacity: 1;
+        pointer-events: none;
+        transition: opacity 0.5s ease;
+      }
+
+      .story-card.is-playing .play-overlay,
+      .film-card.is-playing .play-overlay {
+        opacity: 0;
+      }
+
+      .story-card.is-playing .video-play-button,
+      .film-card.is-playing .video-play-button {
+        pointer-events: none;
+      }
+
+      .play-circle {
+        display: grid;
+        width: 64px;
+        height: 64px;
+        place-items: center;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 999px;
+        backdrop-filter: blur(8px);
+      }
+
+      .video-play-button {
+        display: grid;
+        width: 72px;
+        height: 72px;
+        place-items: center;
+        border: 1px solid rgba(255, 255, 255, 0.55);
+        border-radius: 50%;
+        background: rgba(10, 10, 11, 0.64);
+        color: #fff;
+        pointer-events: auto;
+        transition: transform 0.25s ease, background-color 0.25s ease, color 0.25s ease;
+      }
+
+      .video-play-button:hover,
+      .video-play-button:focus-visible {
+        background: #fff;
+        color: #000;
+        transform: scale(1.06);
+      }
+
+      .video-play-button svg {
+        width: 30px;
+        height: 30px;
+        margin-left: 4px;
+      }
+
+      .film-info {
+        position: absolute;
+        inset: auto 0 0;
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 20px;
+        padding: 28px;
+        background: linear-gradient(to top, rgba(10, 10, 11, 0.82), rgba(10, 10, 11, 0.22), transparent);
+      }
+
+      .duration {
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 10px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .collections {
+        padding: 80px 0;
+      }
+
+      .collection-block + .collection-block {
+        margin-top: 96px;
+      }
+
+      .center-heading {
+        margin-bottom: 56px;
+        text-align: center;
+      }
+
+      .center-heading h2 {
+        margin: 0;
+        color: #fff;
+        font-family: var(--serif);
+        font-size: clamp(40px, 6vw, 64px);
+        font-weight: 400;
+      }
+
+      .package-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 28px;
+      }
+
+      .package-card {
+        position: relative;
+        display: flex;
+        min-height: 520px;
+        flex-direction: column;
+        align-items: center;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        background: var(--brand-card);
+        padding: 32px;
+        text-align: center;
+        transition: border-color 0.4s ease, transform 0.4s ease, box-shadow 0.4s ease;
+      }
+
+      .package-card:hover {
+        transform: translateY(-12px);
+      }
+
+      .package-card.popular {
+        border-color: rgba(197, 160, 89, 0.35);
+        box-shadow: 0 24px 70px rgba(0, 0, 0, 0.35);
+      }
+
+      .package-top {
+        display: flex;
+        width: 100%;
+        align-items: flex-start;
+        justify-content: space-between;
+        margin-bottom: 16px;
+      }
+
+      .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      .popular .dot {
+        background: var(--brand-gold);
+      }
+
+      .package-type,
+      .package-price {
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+      }
+
+      .package-type {
+        color: rgba(255, 255, 255, 0.32);
+      }
+
+      .package-card h3 {
+        margin: 16px 0 10px;
+        color: #fff;
+        font-family: var(--serif);
+        font-size: 30px;
+        font-weight: 400;
+      }
+
+      .package-price {
+        color: var(--brand-gold);
+      }
+
+      .rule {
+        width: 48px;
+        height: 1px;
+        margin: 32px 0;
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      .features {
+        flex: 1;
+        margin: 0 0 40px;
+        padding: 0;
+        color: rgba(255, 255, 255, 0.42);
+        font-size: 10px;
+        letter-spacing: 0.12em;
+        line-height: 1.8;
+        list-style: none;
+        text-transform: uppercase;
+      }
+
+      .features li + li {
+        margin-top: 16px;
+      }
+
+      .custom-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 56px;
+        align-items: center;
+      }
+
+      .addon-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 16px;
+        margin-top: 44px;
+      }
+
+      .addon {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        background: var(--brand-card);
+        color: rgba(255, 255, 255, 0.62);
+        padding: 20px;
+        text-align: left;
+        transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+      }
+
+      .addon:hover {
+        border-color: rgba(255, 255, 255, 0.2);
+      }
+
+      .addon.selected {
+        border-color: var(--brand-gold);
+        background: var(--brand-gold);
+        color: #000;
+      }
+
+      .addon strong {
+        display: block;
+        margin-bottom: 5px;
+        color: #fff;
+        font-size: 10px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .addon.selected strong {
+        color: #000;
+      }
+
+      .addon span {
+        font-size: 9px;
+        letter-spacing: 0.12em;
+      }
+
+      .addon-icon {
+        display: grid;
+        width: 22px;
+        height: 22px;
+        flex: 0 0 auto;
+        place-items: center;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 999px;
+        font-size: 14px;
+      }
+
+      .addon.selected .addon-icon {
+        border-color: rgba(0, 0, 0, 0.2);
+        background: rgba(0, 0, 0, 0.1);
+      }
+
+      .quote-card {
+        position: relative;
+        z-index: 1;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: var(--brand-card);
+        padding: 32px;
+        box-shadow: 0 24px 70px rgba(0, 0, 0, 0.35);
+      }
+
+      .quote-wrap {
+        position: relative;
+      }
+
+      .quote-wrap::after {
+        position: absolute;
+        inset: -10%;
+        z-index: 0;
+        border-radius: 999px;
+        background: rgba(197, 160, 89, 0.05);
+        content: "";
+        filter: blur(120px);
+        pointer-events: none;
+      }
+
+      .quote-card h3 {
+        margin: 0 0 32px;
+        color: #fff;
+        font-family: var(--serif);
+        font-size: 26px;
+        font-style: italic;
+        font-weight: 400;
+      }
+
+      .form-grid,
+      .form-stack {
+        display: grid;
+        gap: 24px;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .enquiry-actions {
+        display: grid;
+        gap: 12px;
+      }
+
+      label {
+        display: block;
+        margin: 0 0 8px 4px;
+        color: rgba(255, 255, 255, 0.32);
+        font-size: 9px;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+      }
+
+      .field {
+        position: relative;
+      }
+
+      .field .icon {
+        position: absolute;
+        top: 50%;
+        left: 12px;
+        width: 16px;
+        height: 16px;
+        color: rgba(255, 255, 255, 0.22);
+        transform: translateY(-50%);
+      }
+
+      .field:focus-within .icon {
+        color: var(--brand-gold);
+      }
+
+      input,
+      textarea {
+        width: 100%;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: transparent;
+        color: #fff;
+        outline: 0;
+        transition: border-color 0.3s ease;
+      }
+
+      input {
+        border-width: 0 0 1px;
+        padding: 13px 8px 13px 40px;
+        font-size: 10px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      textarea {
+        min-height: 120px;
+        padding: 16px;
+        resize: vertical;
+        font-size: 10px;
+        letter-spacing: 0.12em;
+        line-height: 1.7;
+        text-transform: uppercase;
+      }
+
+      input:focus,
+      textarea:focus {
+        border-color: var(--brand-gold);
+      }
+
+      .event-options {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      .event-option {
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: transparent;
+        color: rgba(255, 255, 255, 0.42);
+        padding: 10px 18px;
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+      }
+
+      .event-option:hover {
+        border-color: rgba(255, 255, 255, 0.4);
+        color: #fff;
+      }
+
+      .event-option.selected {
+        border-color: var(--brand-gold);
+        background: var(--brand-gold);
+        color: #000;
+      }
+
+      .prewedding {
+        overflow: hidden;
+        background: rgba(10, 10, 11, 0.5);
+      }
+
+      .pre-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 44px;
+        align-items: center;
+      }
+
+      .feature-list {
+        display: grid;
+        gap: 30px;
+        margin-top: 44px;
+      }
+
+      .feature {
+        display: flex;
+        gap: 24px;
+      }
+
+      .feature + .feature {
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        padding-top: 30px;
+      }
+
+      .feature > .icon {
+        width: 26px;
+        height: 26px;
+        color: var(--brand-gold);
+      }
+
+      .feature-text h4 {
+        margin-bottom: 10px;
+        font-size: 24px;
+      }
+
+      .image-mosaic {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+      }
+
+      .image-column {
+        display: grid;
+        gap: 16px;
+      }
+
+      .image-column:first-child {
+        padding-top: 44px;
+      }
+
+      .mosaic-img {
+        width: 100%;
+        height: 260px;
+        object-fit: cover;
+        filter: grayscale(1);
+        transition: filter 0.7s ease, transform 0.7s ease;
+      }
+
+      .mosaic-img.tall {
+        height: 340px;
+      }
+
+      .mosaic-img:hover {
+        filter: grayscale(0);
+        transform: scale(1.04);
+      }
+
+      .cta {
+        text-align: center;
+      }
+
+      .cta-inner {
+        width: min(100%, 760px);
+        margin: 0 auto;
+      }
+
+      .cta h2 {
+        margin: 0 0 28px;
+        color: #fff;
+        font-family: var(--serif);
+        font-size: clamp(32px, 5vw, 52px);
+        font-weight: 400;
+      }
+
+      .cta p {
+        margin: 0 auto 44px;
+        color: rgba(255, 255, 255, 0.42);
+        font-size: 13px;
+        letter-spacing: 0.12em;
+        line-height: 1.85;
+        text-transform: uppercase;
+      }
+
+      .footer {
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 64px 0;
+      }
+
+      .footer-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 44px;
+      }
+
+      .footer h4 {
+        margin: 0 0 28px;
+        color: rgba(255, 255, 255, 0.32);
+        font-size: 9px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .footer-links {
+        display: grid;
+        gap: 16px;
+      }
+
+      .footer-links a {
+        color: rgba(255, 255, 255, 0.52);
+        font-size: 12px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        transition: color 0.3s ease;
+      }
+
+      .footer-links a:hover {
+        color: #fff;
+      }
+
+      .footer-brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 24px;
+      }
+
+      .footer p {
+        width: min(100%, 320px);
+        margin: 0;
+        color: rgba(255, 255, 255, 0.32);
+        font-family: var(--serif);
+        font-size: 12px;
+        font-style: italic;
+        letter-spacing: 0.12em;
+        line-height: 1.8;
+      }
+
+      .socials {
+        display: flex;
+        gap: 24px;
+        margin-bottom: 40px;
+      }
+
+      .socials a {
+        color: var(--brand-gold);
+        transition: color 0.3s ease, transform 0.3s ease;
+      }
+
+      .socials a:hover {
+        color: #fff;
+        transform: translateY(-4px);
+      }
+
+      .socials .whatsapp-link {
+        color: #25d366;
+      }
+
+      .socials .gmail-link {
+        color: #ea4335;
+      }
+
+      .socials .facebook-link {
+        color: #1877f2;
+      }
+
+      .footer-note {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+
+      .footer-note span {
+        color: rgba(255, 255, 255, 0.42);
+        font-family: var(--serif);
+        font-size: 9px;
+        font-style: italic;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+      }
+
+      .footer-note::after {
+        width: 96px;
+        height: 1px;
+        background: rgba(255, 255, 255, 0.2);
+        content: "";
+      }
+
+      .copyright {
+        margin-top: 28px;
+        color: rgba(255, 255, 255, 0.24);
+        font-size: 9px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .modal {
+        position: fixed;
+        z-index: 200;
+        inset: 0;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+      }
+
+      .modal.open {
+        display: flex;
+      }
+
+      .modal.enquiry {
+        z-index: 250;
+      }
+
+      .modal-backdrop {
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.82);
+        backdrop-filter: blur(8px);
+      }
+
+      .enquiry .modal-backdrop {
+        background: rgba(0, 0, 0, 0.9);
+      }
+
+      .modal-panel {
+        position: relative;
+        width: min(100%, 448px);
+        max-height: 90vh;
+        overflow: auto;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: var(--brand-card);
+        padding: 32px;
+        box-shadow: 0 28px 80px rgba(0, 0, 0, 0.5);
+        animation: modal-in 0.25s ease both;
+      }
+
+      .modal-panel.large {
+        width: min(100%, 680px);
+      }
+
+      .modal-panel::before {
+        position: absolute;
+        top: -64px;
+        right: -64px;
+        width: 128px;
+        height: 128px;
+        border-radius: 999px;
+        background: rgba(197, 160, 89, 0.05);
+        content: "";
+        filter: blur(28px);
+      }
+
+      .modal-close {
+        position: absolute;
+        z-index: 2;
+        top: 18px;
+        right: 18px;
+        border: 0;
+        background: transparent;
+        color: rgba(255, 255, 255, 0.45);
+        padding: 6px;
+        transition: color 0.3s ease;
+      }
+
+      .modal-close:hover {
+        color: #fff;
+      }
+
+      .modal-title {
+        margin-bottom: 32px;
+      }
+
+      .modal-title h2 {
+        margin: 0;
+        color: #fff;
+        font-family: var(--serif);
+        font-size: 34px;
+        font-weight: 400;
+        line-height: 1.05;
+      }
+
+      .modal-title.large-title {
+        margin-bottom: 44px;
+      }
+
+      .modal-title.large-title h2 {
+        font-size: clamp(40px, 7vw, 52px);
+        line-height: 0.95;
+      }
+
+      .fine-print {
+        margin: 28px auto 0;
+        color: rgba(255, 255, 255, 0.24);
+        font-size: 8px;
+        letter-spacing: 0.12em;
+        line-height: 1.8;
+        text-align: center;
+        text-transform: uppercase;
+      }
+
+      .lightbox {
+        position: fixed;
+        z-index: 300;
+        inset: 0;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 52px 20px;
+        background: rgba(0, 0, 0, 0.95);
+        backdrop-filter: blur(16px);
+      }
+
+      .lightbox.open {
+        display: flex;
+      }
+
+      .lightbox img {
+        max-width: 100%;
+        max-height: 82vh;
+        object-fit: contain;
+        box-shadow: 0 25px 70px #000;
+      }
+
+      .lightbox button {
+        position: absolute;
+        z-index: 2;
+        border: 0;
+        background: transparent;
+        color: rgba(255, 255, 255, 0.5);
+        padding: 8px;
+        transition: color 0.3s ease, transform 0.3s ease;
+      }
+
+      .lightbox button:hover {
+        color: #fff;
+        transform: scale(1.05);
+      }
+
+      .lightbox-close {
+        top: 24px;
+        right: 24px;
+      }
+
+      .lightbox-prev,
+      .lightbox-next {
+        top: 50%;
+        transform: translateY(-50%);
+      }
+
+      .lightbox-prev:hover,
+      .lightbox-next:hover {
+        transform: translateY(-50%) scale(1.05);
+      }
+
+      .lightbox-prev {
+        left: 12px;
+      }
+
+      .lightbox-next {
+        right: 12px;
+      }
+
+      .lightbox-frame {
+        position: relative;
+      }
+
+      .lightbox-meta {
+        position: absolute;
+        right: 0;
+        bottom: -40px;
+        left: 0;
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        color: rgba(255, 255, 255, 0.45);
+        font-size: 10px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .fade-up {
+        animation: rise-in 0.7s ease both;
+      }
+
+      @keyframes rise-in {
+        from {
+          opacity: 0;
+          transform: translateY(24px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes modal-in {
+        from {
+          opacity: 0;
+          transform: translateY(20px) scale(0.95);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+      }
+
+      @media (min-width: 640px) {
+        .addon-grid,
+        .form-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .full {
+          grid-column: 1 / -1;
+        }
+      }
+
+      @media (min-width: 768px) {
+        .container {
+          padding: 0 48px;
+        }
+
+        .section,
+        .collections {
+          padding: 120px 0;
+        }
+
+        .topbar-inner {
+          padding: 28px 48px;
+        }
+
+        .story-grid,
+        .package-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .photo-grid {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .film-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .pre-grid {
+          grid-template-columns: 5fr 7fr;
+          gap: 64px;
+        }
+
+        .mosaic-img {
+          height: 300px;
+        }
+
+        .mosaic-img.tall {
+          height: 400px;
+        }
+
+        .footer {
+          padding: 88px 0;
+        }
+
+        .footer-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .modal-panel {
+          padding: 40px;
+        }
+
+        .modal-panel.large {
+          padding: 48px;
+        }
+      }
+
+      @media (min-width: 1024px) {
+        .nav {
+          display: flex;
+        }
+
+        .gallery-head-row {
+          flex-direction: row;
+          align-items: flex-end;
+          justify-content: space-between;
+        }
+
+        .story-grid,
+        .package-grid {
+          grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
+
+        .photo-grid {
+          grid-template-columns: repeat(5, minmax(0, 1fr));
+        }
+
+        .custom-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 80px;
+        }
+
+        .footer-grid {
+          grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 520px) {
+        .brand-name {
+          max-width: 150px;
+          font-size: 11px;
+          letter-spacing: 0.22em;
+        }
+
+        .logo-mark {
+          width: 44px;
+          height: 44px;
+        }
+
+        .topbar-inner {
+          gap: 14px;
+          padding: 20px 18px;
+        }
+
+        .topbar .btn {
+          min-height: 38px;
+          padding: 10px 14px;
+          letter-spacing: 0.12em;
+        }
+
+        .floating-contacts {
+          right: 12px;
+          gap: 8px;
+        }
+
+        .floating-contacts a {
+          width: 38px;
+          height: 38px;
+        }
+
+        .hero {
+          min-height: 560px;
+        }
+
+        .hero-media {
+          width: min(92vw, 820px);
+        }
+
+        .hero-sound {
+          right: 10px;
+          bottom: 10px;
+          min-height: 34px;
+          padding: 8px 10px;
+          font-size: 9px;
+        }
+
+        .display,
+        .hero h1 {
+          overflow-wrap: anywhere;
+        }
+
+        .photo-grid {
+          gap: 12px;
+        }
+
+        .film-info {
+          padding: 18px;
+        }
+
+        .film-info h3 {
+          font-size: 22px;
+        }
+
+        .lightbox-meta {
+          position: static;
+          margin-top: 16px;
+          flex-direction: column;
+          gap: 6px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="site">
+      <div class="floating-contacts" aria-label="Quick contact links">
+        <a class="whatsapp-link" href="https://wa.me/?text=Hello%20Pixeltrio%20Wedding%2C%20I%20want%20to%20enquire%20about%20wedding%20photography." target="_blank" rel="noopener" data-whatsapp-link aria-label="WhatsApp Pixeltrio Wedding">
+          <span class="icon" data-icon="whatsapp"></span>
+        </a>
+        <a class="gmail-link" href="mailto:pixeltrioofficial@gmail.com" aria-label="Email Pixeltrio Wedding">
+          <span class="icon" data-icon="mail"></span>
+        </a>
+        <a class="instagram-link" href="https://www.instagram.com/pixel.trioofficial?igsh=MW84Z282a21kbjJjMw==" target="_blank" rel="noopener" aria-label="Open Pixeltrio Wedding Instagram">
+          <span class="icon" data-icon="instagram"></span>
+        </a>
+        <a class="facebook-link" href="https://www.facebook.com/share/1CBGYRUTNm/" target="_blank" rel="noopener" aria-label="Open Pixeltrio Wedding Facebook">
+          <span class="icon" data-icon="facebook"></span>
+        </a>
+      </div>
+
+      <div class="modal" id="lead-modal" aria-hidden="true">
+        <div class="modal-backdrop" data-close-modal></div>
+        <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="lead-title">
+          <button class="modal-close" type="button" data-close-modal aria-label="Close modal">
+            <span class="icon" data-icon="x"></span>
+          </button>
+          <div class="modal-title">
+            <span class="eyebrow">Exclusive Invitation</span>
+            <h2 id="lead-title">Request Your <br /><span class="italic">Curated Proposal</span></h2>
+          </div>
+          <form id="lead-form" class="form-stack">
+            <div class="field">
+              <span class="icon" data-icon="user"></span>
+              <input type="text" name="name" required placeholder="FULL NAME" />
+            </div>
+            <div class="field">
+              <span class="icon" data-icon="phone"></span>
+              <input type="tel" name="phone" required placeholder="CONTACT NUMBER" />
+            </div>
+            <div class="field">
+              <span class="icon" data-icon="mail"></span>
+              <input type="email" name="email" required placeholder="GMAIL ADDRESS" />
+            </div>
+            <div class="enquiry-actions">
+              <button class="btn gmail" type="submit">Gmail Inquiry <span class="icon" data-icon="mail"></span></button>
+              <a class="btn whatsapp" id="lead-whatsapp" href="https://wa.me/918250876551" target="_blank" rel="noopener" aria-label="Send lead inquiry on WhatsApp">
+                WhatsApp Inquiry <span class="icon" data-icon="whatsapp"></span>
+              </a>
+            </div>
+          </form>
+          <p class="fine-print">By submitting, you agree to receive our luxury wedding lookbook and exclusive updates.</p>
+        </div>
+      </div>
+
+      <div class="modal enquiry" id="enquiry-modal" aria-hidden="true">
+        <div class="modal-backdrop" data-close-modal></div>
+        <div class="modal-panel large" role="dialog" aria-modal="true" aria-labelledby="enquiry-title">
+          <button class="modal-close" type="button" data-close-modal aria-label="Close enquiry">
+            <span class="icon" data-icon="x"></span>
+          </button>
+          <div class="modal-title large-title">
+            <span class="eyebrow">The Connection</span>
+            <h2 id="enquiry-title">Secure Your <br /><span class="italic">Curated Date</span></h2>
+          </div>
+          <form id="enquiry-form" class="form-grid">
+            <div>
+              <label for="enquiry-name">Full Name</label>
+              <div class="field">
+                <span class="icon" data-icon="user"></span>
+                <input id="enquiry-name" type="text" name="name" required />
+              </div>
+            </div>
+            <div>
+              <label for="enquiry-phone">Contact Number</label>
+              <div class="field">
+                <span class="icon" data-icon="phone"></span>
+                <input id="enquiry-phone" type="tel" name="phone" required />
+              </div>
+            </div>
+            <div class="full">
+              <label for="enquiry-address">Address / Location</label>
+              <div class="field">
+                <span class="icon" data-icon="pin"></span>
+                <input id="enquiry-address" type="text" name="address" required />
+              </div>
+            </div>
+            <div class="full">
+              <label>Select Event Type</label>
+              <div class="event-options" id="event-options"></div>
+            </div>
+            <div class="full">
+              <label for="enquiry-message">Additional Details</label>
+              <textarea id="enquiry-message" name="message" rows="4" placeholder="TELL US MORE ABOUT YOUR VISION..."></textarea>
+            </div>
+            <div class="full">
+              <button class="btn gmail" type="submit">Gmail Inquiry <span class="icon" data-icon="mail"></span></button>
+            </div>
+            <div class="full enquiry-actions">
+              <a class="btn whatsapp" id="whatsapp-enquiry" href="https://wa.me/918250876551" target="_blank" rel="noopener" data-whatsapp-link aria-label="Send inquiry on WhatsApp">
+                WhatsApp Inquiry <span class="icon" data-icon="whatsapp"></span>
+              </a>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <header class="topbar">
+        <div class="topbar-inner">
+          <button class="brand" type="button" id="scroll-top" aria-label="Scroll to top">
+            <img class="logo-mark" src="photos/pixel-trio-logo-main.png" alt="Pixel Trio logo" />
+            <span class="brand-name">Pixeltrio Wedding</span>
+          </button>
+          <nav class="nav" aria-label="Primary navigation">
+            <a href="#the-story">The Story</a>
+            <a href="#gallery">Gallery</a>
+            <a class="active" href="#collections">Collections</a>
+            <a href="#custom-package">Bespoke</a>
+            <a href="#cinematic">Cinematic</a>
+            <a href="#journal">Journal</a>
+            <button type="button" data-open-enquiry>Enquire</button>
+          </nav>
+          <button class="btn" type="button" data-open-enquiry>Inquiry</button>
+        </div>
+      </header>
+
+      <main>
+        <section class="hero">
+          <video class="hero-video" muted playsinline preload="metadata">
+            <source src="video/New/Teaser.mp4#t=0.1" type="video/mp4" />
+          </video>
+          <div class="hero-overlay"></div>
+          <div class="hero-backdrop-title" aria-hidden="true">Winter Collection 2026</div>
+          <div class="hero-content">
+            <div class="hero-media">
+              <video id="hero-feature-video" playsinline controls preload="metadata">
+                <source src="video/New/Teaser.mp4#t=0.1" type="video/mp4" />
+              </video>
+              <button class="btn hero-sound" type="button" id="hero-sound-toggle" aria-pressed="false">Play Video</button>
+            </div>
+            <h1>Winter <span class="italic">Collection</span> 2026</h1>
+            <p>A cinematic wedding film preview in a landscape frame, softened by a faded motion backdrop.</p>
+          </div>
+        </section>
+
+        <section class="section" id="the-story">
+          <div class="container">
+            <div class="story-heading fade-up">
+              <span class="eyebrow">Behind the Lens</span>
+              <h2 class="display">Our <br /><span class="italic">Featured Stories</span></h2>
+              <p class="micro">Updated Daily for New Inspiration</p>
+            </div>
+            <div class="story-grid" id="story-grid"></div>
+          </div>
+        </section>
+
+        <section class="section" id="gallery">
+          <div class="container">
+            <div class="gallery-head-row">
+              <div class="gallery-heading">
+                <span class="eyebrow">The Portfolio</span>
+                <h2 class="display small">Visual <br /><span class="italic">Legacies</span></h2>
+                <p class="micro">Curated Daily Selection for New Perspective</p>
+              </div>
+              <div class="tabs" id="gallery-tabs"></div>
+            </div>
+            <div class="photo-grid" id="photo-grid"></div>
+          </div>
+        </section>
+
+        <section class="section" id="cinematic">
+          <div class="container">
+            <div class="story-heading" style="text-align:left">
+              <span class="eyebrow">Cinematography</span>
+              <h2 class="display">Moving <br /><span class="italic">Masterpieces</span></h2>
+              <p class="micro cinematic-copy">Every frame is a painting, every shot a memory. Experience our signature cinematic approach in full landscape splendor.</p>
+            </div>
+            <div class="film-grid" id="film-grid"></div>
+          </div>
+        </section>
+
+        <section class="collections" id="collections">
+          <div class="container">
+            <div class="collection-block">
+              <div class="center-heading">
+                <span class="eyebrow">Wedding Collections</span>
+                <h2>Capture the Grandeur</h2>
+              </div>
+              <div class="package-grid" id="wedding-packages"></div>
+            </div>
+            <div class="collection-block">
+              <div class="center-heading">
+                <span class="eyebrow">Lifestyle &amp; Pre-Wedding</span>
+                <h2>Curated Moments</h2>
+              </div>
+              <div class="package-grid" id="lifestyle-packages"></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="custom-package">
+          <div class="container">
+            <div class="custom-grid">
+              <div>
+                <span class="eyebrow">Tailored Experience</span>
+                <h2 class="display small">Build Your <br /><span class="italic">Masterpiece</span></h2>
+                <p class="micro" style="max-width:420px">Every love story is unique. Select the specific services you require to create a bespoke package that aligns perfectly with your vision.</p>
+                <div class="addon-grid" id="addon-grid"></div>
+              </div>
+              <div class="quote-wrap">
+                <div class="quote-card">
+                  <h3>Specify Details</h3>
+                  <form id="custom-form" class="form-stack">
+                    <div>
+                      <label for="custom-details">Engagement Details</label>
+                      <textarea id="custom-details" name="details" rows="4" placeholder="DESCRIBE YOUR VISION, ESTIMATED DATES, AND LOCATIONS..."></textarea>
+                    </div>
+                    <div class="enquiry-actions">
+                      <button class="btn gmail" id="custom-submit" type="submit">Gmail Custom Quote <span class="icon" data-icon="mail"></span></button>
+                      <a class="btn whatsapp" id="custom-whatsapp" href="https://wa.me/918250876551" target="_blank" rel="noopener" aria-label="Send custom quote on WhatsApp">
+                        WhatsApp Custom Quote <span class="icon" data-icon="whatsapp"></span>
+                      </a>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section prewedding" id="journal">
+          <div class="container pre-grid">
+            <div>
+              <span class="eyebrow">The Beginning</span>
+              <h2 class="display">Quiet <br /><span class="italic">Sessions</span></h2>
+              <p class="muted-copy">An intimate exploration of your love story before the grand celebration begins. Our pre-wedding sessions are cinematic experiences tailored to your personality, set in the most breathtaking locations.</p>
+              <div class="feature-list">
+                <div class="feature">
+                  <span class="icon" data-icon="sparkles"></span>
+                  <div class="feature-text">
+                    <h4>The Narrative</h4>
+                    <p class="micro">4-hour session at a curated location with professional styling guidance and creative direction.</p>
+                  </div>
+                </div>
+                <div class="feature">
+                  <span class="icon" data-icon="film"></span>
+                  <div class="feature-text">
+                    <h4>Cinematic Save the Date</h4>
+                    <p class="micro">A 60-second vertical trailer perfect for digital invitations and social media storytelling.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="image-mosaic">
+              <div class="image-column">
+                <img class="mosaic-img tall" src="photos/1 (3).webp" alt="Couple walking through heritage fort" referrerpolicy="no-referrer" />
+                <img class="mosaic-img" src="photos/1 (2).jpg" alt="Henna hands close-up" referrerpolicy="no-referrer" />
+              </div>
+              <div class="image-column">
+                <img class="mosaic-img" src="photos/1 (3).jpg" alt="Bride in palace window" referrerpolicy="no-referrer" />
+                <img class="mosaic-img tall" src="photos/1 (2).webp" alt="Groom in garden" referrerpolicy="no-referrer" />
+              </div>
+              <div class="image-column">
+                <img class="mosaic-img tall" src="photos/1 (3).webp" alt="Couple walking through heritage fort" referrerpolicy="no-referrer" />
+                <img class="mosaic-img" src="photos/1 (2).jpg" alt="Henna hands close-up" referrerpolicy="no-referrer" />
+              </div>
+              <div class="image-column">
+                <img class="mosaic-img" src="photos/1 (3).jpg" alt="Bride in palace window" referrerpolicy="no-referrer" />
+                <img class="mosaic-img tall" src="photos/1 (2).webp" alt="Groom in garden" referrerpolicy="no-referrer" />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section cta" id="enquire">
+          <div class="container">
+            <div class="cta-inner">
+              <h2>Seeking something bespoke?</h2>
+              <p>We understand every wedding is unique. Let us curate a package that perfectly aligns with your vision and requirements.</p>
+              <button class="btn" type="button" data-open-enquiry>Request a Personalized Quote</button>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <div class="container footer-grid">
+          <div>
+            <div class="footer-brand">
+              <img class="logo-mark" src="photos/pixel-trio-logo-main.png" alt="Pixel Trio logo" />
+              <span class="brand-name">Pixeltrio Wedding</span>
+            </div>
+            <p>Crafting visual legacies for the discerning couple since 2012. Available for celebrations worldwide.</p>
+          </div>
+          <div>
+            <h4>Navigations</h4>
+            <div class="footer-links">
+              <a href="#the-story">The Story</a>
+              <a href="#collections">Collections</a>
+              <a href="#cinematic">Cinematic</a>
+              <a href="#journal">Journal</a>
+            </div>
+          </div>
+          <div>
+            <h4>Legal &amp; Info</h4>
+            <div class="footer-links">
+              <a href="#">Privacy Policy</a>
+              <a href="#">Terms of Service</a>
+              <a href="#">FAQ</a>
+              <a href="#">Studio Locations</a>
+            </div>
+          </div>
+          <div>
+            <h4>Connect</h4>
+            <div class="socials">
+              <a class="whatsapp-link" href="https://wa.me/?text=Hello%20Pixeltrio%20Wedding%2C%20I%20want%20to%20enquire%20about%20wedding%20photography." target="_blank" rel="noopener" data-whatsapp-link aria-label="WhatsApp Pixeltrio Wedding"><span class="icon" data-icon="whatsapp"></span></a>
+              <a href="https://www.instagram.com/pixeltrioofficial/" target="_blank" rel="noopener" aria-label="Instagram"><span class="icon" data-icon="instagram"></span></a>
+              <a class="facebook-link" href="https://www.facebook.com/pixeltrioofficial" target="_blank" rel="noopener" aria-label="Facebook"><span class="icon" data-icon="facebook"></span></a>
+              <a class="gmail-link" href="mailto:pixeltrioofficial@gmail.com" aria-label="Gmail Pixeltrio Wedding"><span class="icon" data-icon="mail"></span></a>
+            </div>
+            <div class="footer-note"><span>Private Members Only</span></div>
+            <div class="copyright">© 2026 Pixeltrio Wedding. All rights reserved.</div>
+          </div>
+        </div>
+      </footer>
+
+      <div class="lightbox" id="lightbox" aria-hidden="true">
+        <button class="lightbox-close" type="button" id="lightbox-close" aria-label="Close lightbox"><span class="icon" data-icon="x"></span></button>
+        <button class="lightbox-prev" type="button" id="lightbox-prev" aria-label="Previous photo"><span class="icon" data-icon="chevron-left"></span></button>
+        <button class="lightbox-next" type="button" id="lightbox-next" aria-label="Next photo"><span class="icon" data-icon="chevron-right"></span></button>
+        <div class="lightbox-frame" id="lightbox-frame">
+          <img id="lightbox-img" alt="Full screen photo" referrerpolicy="no-referrer" />
+          <div class="lightbox-meta">
+            <span id="lightbox-category"></span>
+            <span id="lightbox-count"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const icons = {
+        x: '<svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>',
+        user: '<svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>',
+        phone: '<svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.89.7 2.78a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.3-1.27a2 2 0 0 1 2.11-.45c.89.34 1.82.57 2.78.7A2 2 0 0 1 22 16.92z"/></svg>',
+        mail: '<svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a2 2 0 0 1-2.06 0L2 7"/></svg>',
+        send: '<svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>',
+        pin: '<svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.99-5.52 10.29-7.4 11.95a1 1 0 0 1-1.2 0C9.52 20.29 4 14.99 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>',
+        sparkles: '<svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.9 5.8L4 11l6.1 2.2L12 19l1.9-5.8L20 11l-6.1-2.2Z"/><path d="M5 3v4"/><path d="M3 5h4"/><path d="M19 17v4"/><path d="M17 19h4"/></svg>',
+        film: '<svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M7 3v18"/><path d="M17 3v18"/><path d="M3 8h4"/><path d="M3 16h4"/><path d="M17 8h4"/><path d="M17 16h4"/></svg>',
+        play: '<svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M8 5v14l11-7z"/></svg>',
+        instagram: '<svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><path d="M17.5 6.5h.01"/></svg>',
+        whatsapp: '<svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M20.52 3.48A11.86 11.86 0 0 0 12.08 0C5.54 0 .22 5.32.22 11.86c0 2.09.55 4.14 1.6 5.94L.12 24l6.35-1.67a11.84 11.84 0 0 0 5.61 1.43h.01c6.54 0 11.86-5.32 11.86-11.86a11.8 11.8 0 0 0-3.43-8.42ZM12.09 21.75h-.01a9.83 9.83 0 0 1-5.01-1.37l-.36-.22-3.77.99 1-3.67-.24-.38a9.83 9.83 0 0 1-1.51-5.24c0-5.45 4.44-9.89 9.9-9.89a9.82 9.82 0 0 1 6.99 2.9 9.82 9.82 0 0 1 2.9 7c0 5.45-4.44 9.88-9.89 9.88Zm5.42-7.39c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.64.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.47-1.75-1.65-2.05-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.06 2.87 1.21 3.07c.15.2 2.09 3.19 5.07 4.47.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.42.25-.69.25-1.29.17-1.42-.07-.13-.27-.2-.57-.35Z"/></svg>',
+        facebook: '<svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M24 12.07C24 5.41 18.63 0 12 0S0 5.41 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.05V9.41c0-3.02 1.79-4.7 4.53-4.7 1.31 0 2.69.24 2.69.24v2.97h-1.51c-1.49 0-1.95.93-1.95 1.88v2.27h3.33l-.53 3.49h-2.8V24C19.61 23.1 24 18.1 24 12.07Z"/></svg>',
+        camera: '<svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3z"/><circle cx="12" cy="13" r="3"/></svg>',
+        "chevron-left": '<svg viewBox="0 0 24 24" fill="none" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>',
+        "chevron-right": '<svg viewBox="0 0 24 24" fill="none" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>'
+      };
+
+      document.querySelectorAll("[data-icon]").forEach((node) => {
+        node.innerHTML = icons[node.dataset.icon] || "";
+      });
+
+      const allStories = [
+        { title: "The Vision", video: "video/susmita dd bride.mp4", description: "From the first light of dawn to the final dance, we capture the silent glances and the profound promises that define your union." },
+        { title: "The Art", video: "video/New/Reels 3rd f.mp4", description: "Our approach is purely cinematic. We don't just record events; we weave a narrative of light, shadow, and emotion." },
+        { title: "The Legacy", video: "video/New/Reels SAjkatha Out.mp4", description: "Creating visual artifacts that transcend time. Your wedding film is not just a memory, it's a family heirloom." },
+        { title: "The Heart", video: "video/New/mon susumita.mp4", description: "Beyond the grand celebrations lie the intimate moments. We are there to find the magic in the quiet spaces." },
+        { title: "The Grace", video: "video/New/Style of Sajkatha.mp4", description: "Grace in every step, beauty in every breath. We honor the traditions that make your day holy." },
+        { title: "The Promise", video: "video/New/Dipu M 02.mp4", description: "A promise made in silence is often the loudest. We capture the whispers that echo through a lifetime." }
+      ];
+
+      const portfolioData = {
+        preWedding: {
+          title: "PRE-WEDDING SHOOTS",
+          images: [
+            "https://picsum.photos/seed/pixeltrio-pre-wedding-1/1920/1280",
+            "https://picsum.photos/seed/pixeltrio-pre-wedding-2/1920/1280",
+            "https://picsum.photos/seed/pixeltrio-pre-wedding-3/1920/1280",
+            "https://picsum.photos/seed/pixeltrio-pre-wedding-4/1920/1280",
+            "https://picsum.photos/seed/pixeltrio-pre-wedding-5/1920/1280"
+          ]
+        },
+        wedding: {
+          title: "WEDDING SHOOTS",
+          images: [
+            "https://picsum.photos/seed/pixeltrio-wedding-1/1920/1280",
+            "https://picsum.photos/seed/pixeltrio-wedding-2/1920/1280",
+            "https://picsum.photos/seed/pixeltrio-wedding-3/1920/1280",
+            "https://picsum.photos/seed/pixeltrio-wedding-4/1920/1280",
+            "https://picsum.photos/seed/pixeltrio-wedding-5/1920/1280"
+          ]
+        },
+        engagement: {
+          title: "ENGAGEMENT SHOOTS",
+          images: [
+            "https://picsum.photos/seed/pixeltrio-engagement-1/1920/1280",
+            "https://picsum.photos/seed/pixeltrio-engagement-2/1920/1280",
+            "https://picsum.photos/seed/pixeltrio-engagement-3/1920/1280",
+            "https://picsum.photos/seed/pixeltrio-engagement-4/1920/1280",
+            "https://picsum.photos/seed/pixeltrio-engagement-5/1920/1280"
+          ]
+        },
+        anniversary: {
+          title: "ANNIVERSARY SHOOTS",
+          images: [
+            "https://picsum.photos/seed/pixeltrio-anniversary-1/1920/1280",
+            "https://picsum.photos/seed/pixeltrio-anniversary-2/1920/1280",
+            "https://picsum.photos/seed/pixeltrio-anniversary-3/1920/1280",
+            "https://picsum.photos/seed/pixeltrio-anniversary-4/1920/1280",
+            "https://picsum.photos/seed/pixeltrio-anniversary-5/1920/1280"
+          ]
+        },
+        brides: {
+          title: "BRIDES",
+          images: [
+            "photos/1 (1).jpg",
+            "photos/1 (2).jpg",
+            "photos/1 (3).jpg",
+            "photos/1 (4).jpg",
+            "photos/1 (1).webp"
+          ]
+        },
+        reception: {
+          title: "RECEPTION SHOOTS",
+          images: [
+            "https://picsum.photos/seed/pixeltrio-reception-1/1920/1280",
+            "https://picsum.photos/seed/pixeltrio-reception-2/1920/1280",
+            "https://picsum.photos/seed/pixeltrio-reception-3/1920/1280",
+            "https://picsum.photos/seed/pixeltrio-reception-4/1920/1280",
+            "https://picsum.photos/seed/pixeltrio-reception-5/1920/1280"
+          ]
+        }
+      };
+
+      const films = [
+        { title: "Wedding Masterpiece", url: "video/V2.mp4", duration: "04:20" },
+        { title: "Desert Serenade", url: "video/v1.mp4", duration: "03:15" },
+        { title: "The Final Waltz", url: "video/New/Pre Wedding 03.mp4", duration: "05:45" },
+        { title: "Golden Hour Vows", url: "video/New/kOLKATA PRE WEDD.mp4", duration: "02:50" }
+      ];
+
+      const weddingPackages = [
+        { type: "Essential", name: "Silver", price: "₹ 65,000", features: ["6 Hours Coverage", "Single Photographer", "250+ Edited High-Res Photos", "Digital Gallery Delivery", "Online Slideshow"] },
+        { type: "Classic", name: "Gold", price: "₹ 75,000", popular: true, features: ["8 Hours Coverage", "Duo Photography Team", "400+ Edited High-Res Photos", "Cinematic Highlight Film (3-5 min)", "Luxury Coffee Table Book"] },
+        { type: "Signature", name: "Super Gold", price: "₹ 95,000", features: ["12 Hours Full Day Coverage", "Triple Camera Setup", "600+ Edited High-Res Photos", "Extended Cinematic Film (10-15 min)", "Premium Heirloom Album", "Same Day Teaser Video"] },
+        { type: "Grand", name: "Premium", price: "₹ 1,30,000", features: ["Multi-Day Coverage", "Lead Artist & Team of 4", "Unlimited Edited Photos", "Full Documentary Film + Highlights", "2 Luxury Albums & Canvas Prints", "Drone Cinematography"] }
+      ];
+
+      const lifestylePackages = [
+        { type: "Celebration", name: "Birthday", price: "₹ 25,000", features: ["1 Photographer & 1 Cinematographer", "1 Drone Coverage", "100 Edited High-Res Photos", "1 Cinematic Video & 1 Reel", "50 Photos Standard Album Book"] },
+        { type: "Celebration", name: "Anniversary", price: "₹ 25,000", features: ["1 Photographer & 1 Cinematographer", "1 Drone Coverage", "100 Edited High-Res Photos", "1 Cinematic Video & 1 Reel", "50 Photos Standard Album Book"] },
+        { type: "Curation", name: "Pre-Wedding Gold", price: "₹ 20,000", features: ["1 Photographer & 1 Cinematographer", "1 Drone Coverage", "100 Edited High-Res Photos", "1 Cinematic Video & 1 Reel"] },
+        { type: "Curation", name: "Pre-Wedding Premium", price: "₹ 30,000", popular: true, features: ["1 Photographer & 2 Cinematographers", "1 Drone Coverage", "1 Cinematic Film & 4 Reels", "150 Edited High-Res Photos", "70 Photos Mini Album Book"] }
+      ];
+
+      const addOns = [
+        { id: "drone", label: "Drone Cinematography", price: "₹ 15,000" },
+        { id: "pre-wedding", label: "Pre-Wedding Shoot", price: "₹ 25,000" },
+        { id: "album", label: "Extra Luxury Album", price: "₹ 12,000" },
+        { id: "extra-day", label: "Additional Day Coverage", price: "₹ 30,000" },
+        { id: "teaser", label: "Same-Day Edit Teaser", price: "₹ 10,000" },
+        { id: "photographer", label: "Additional Lead Artist", price: "₹ 20,000" }
+      ];
+
+      const eventTypes = ["Wedding", "Pre-Wedding", "Engagement", "Birthday", "Anniversary", "Brides"];
+      const dayOfYear = (() => {
+        const now = new Date();
+        const start = new Date(now.getFullYear(), 0, 0);
+        const diff = now.getTime() - start.getTime() + (start.getTimezoneOffset() - now.getTimezoneOffset()) * 60 * 1000;
+        return Math.floor(diff / (1000 * 60 * 60 * 24));
+      })();
+
+      const rotate = (items) => {
+        const startIndex = dayOfYear % items.length;
+        return [...items.slice(startIndex), ...items.slice(0, startIndex)];
+      };
+
+      const photos = Object.entries(portfolioData).flatMap(([key, data]) => {
+        return rotate(data.images).map((url, index) => ({
+          id: `${key}-${index}`,
+          category: data.title,
+          url
+        }));
+      });
+
+      const categories = Object.values(portfolioData).map((entry) => entry.title);
+      let activeCategory = categories[0];
+      let selectedPhotoIndex = null;
+      let selectedEventType = "Wedding";
+      const selectedServices = new Set();
+      const CONTACT_EMAIL = "pixeltrioofficial@gmail.com";
+      const WHATSAPP_NUMBER = "+91 82508 76551";
+      const VIDEO_THUMBNAIL_TIME = 0.1;
+
+      function videoPreviewSrc(url) {
+        return `${url}#t=${VIDEO_THUMBNAIL_TIME}`;
+      }
+
+      function renderStories() {
+        document.getElementById("story-grid").innerHTML = rotate(allStories).slice(0, 4).map((story, index) => `
+          <article class="story-card video-card fade-up">
+            <video playsinline preload="metadata">
+              <source src="${videoPreviewSrc(story.video)}" type="video/mp4" />
+            </video>
+            <div class="play-overlay">
+              <button class="video-play-button" type="button" data-play-video aria-label="Play ${story.title} with sound">
+                <span class="icon">${icons.play}</span>
+              </button>
+            </div>
+            <div class="story-info">
+              <span class="micro" style="color:var(--brand-gold)">Archive 0${index + 1}</span>
+              <h3>${story.title}</h3>
+              <p>${story.description}</p>
+            </div>
+          </article>
+        `).join("");
+      }
+
+      function renderGalleryTabs() {
+        document.getElementById("gallery-tabs").innerHTML = categories.map((category) => `
+          <button class="tab ${category === activeCategory ? "active" : ""}" type="button" data-category="${category}">${category}</button>
+        `).join("");
+      }
+
+      function renderPhotos() {
+        const filtered = photos.filter((photo) => photo.category === activeCategory);
+        document.getElementById("photo-grid").innerHTML = filtered.map((photo) => {
+          const absoluteIndex = photos.findIndex((item) => item.id === photo.id);
+          return `
+            <button class="photo-tile" type="button" data-photo-index="${absoluteIndex}" aria-label="Open ${photo.category} photo">
+              <img src="${photo.url}" alt="${photo.category} photo" referrerpolicy="no-referrer" />
+            </button>
+          `;
+        }).join("");
+      }
+
+      function renderFilms() {
+        document.getElementById("film-grid").innerHTML = films.map((film, index) => `
+          <article class="film-card video-card fade-up">
+            <video playsinline controls preload="metadata">
+              <source src="${videoPreviewSrc(film.url)}" type="video/mp4" />
+            </video>
+            <div class="play-overlay">
+              <button class="video-play-button" type="button" data-play-video aria-label="Play ${film.title} with sound">
+                <span class="icon">${icons.play}</span>
+              </button>
+            </div>
+            <div class="film-info">
+              <div>
+                <span class="micro" style="color:var(--brand-gold)">Film #${index + 1}</span>
+                <h3>${film.title}</h3>
+              </div>
+              <div class="duration">${film.duration}</div>
+            </div>
+          </article>
+        `).join("");
+      }
+
+      function packageMarkup(pkg, index) {
+        return `
+          <article class="package-card ${pkg.popular ? "popular" : ""}">
+            <div class="package-top">
+              <span class="micro">${pkg.popular ? "01" : "0X"}</span>
+              <span class="dot"></span>
+            </div>
+            <span class="package-type">${pkg.type}</span>
+            <h3>${pkg.name}</h3>
+            <div class="package-price">${pkg.price}</div>
+            <div class="rule"></div>
+            <ul class="features">${pkg.features.map((feature) => `<li>${feature}</li>`).join("")}</ul>
+            <button class="btn ${pkg.popular ? "gold" : ""}" type="button" data-open-enquiry>Select Package</button>
+          </article>
+        `;
+      }
+
+      function renderPackages() {
+        document.getElementById("wedding-packages").innerHTML = weddingPackages.map(packageMarkup).join("");
+        document.getElementById("lifestyle-packages").innerHTML = lifestylePackages.map(packageMarkup).join("");
+      }
+
+      function renderAddOns() {
+        document.getElementById("addon-grid").innerHTML = addOns.map((item) => {
+          const isSelected = selectedServices.has(item.id);
+          return `
+            <button class="addon ${isSelected ? "selected" : ""}" type="button" data-addon="${item.id}">
+              <span>
+                <strong>${item.label}</strong>
+                <span>Starts at ${item.price}</span>
+              </span>
+              <span class="addon-icon">${isSelected ? "✓" : "+"}</span>
+            </button>
+          `;
+        }).join("");
+      }
+
+      function renderEventOptions() {
+        document.getElementById("event-options").innerHTML = eventTypes.map((type) => `
+          <button class="event-option ${type === selectedEventType ? "selected" : ""}" type="button" data-event-type="${type}">${type}</button>
+        `).join("");
+      }
+
+      function getLeadMessage() {
+        const form = new FormData(document.getElementById("lead-form"));
+        return [
+          "Hello Pixeltrio Wedding, I want to enquire about wedding photography.",
+          "",
+          `Name: ${form.get("name") || ""}`,
+          `Phone: ${form.get("phone") || ""}`,
+          `Email: ${form.get("email") || ""}`
+        ].join("\n");
+      }
+
+      function getEnquiryMessage() {
+        const form = new FormData(document.getElementById("enquiry-form"));
+        return [
+          "Hello Pixeltrio Wedding, I want to enquire about wedding photography.",
+          "",
+          `Name: ${form.get("name") || ""}`,
+          `Phone: ${form.get("phone") || ""}`,
+          `Address: ${form.get("address") || ""}`,
+          `Event Type: ${selectedEventType}`,
+          "",
+          `Message: ${form.get("message") || ""}`
+        ].join("\n");
+      }
+
+      function getCustomMessage() {
+        const form = new FormData(document.getElementById("custom-form"));
+        const services = [...selectedServices].map((id) => addOns.find((item) => item.id === id)?.label).filter(Boolean);
+        return [
+          "Hello Pixeltrio Wedding, I want a custom quote.",
+          "",
+          `Selected Services: ${services.length ? services.join(", ") : "Not selected"}`,
+          "",
+          "Details:",
+          form.get("details") || ""
+        ].join("\n");
+      }
+
+      function getWhatsappUrl(message) {
+        const text = encodeURIComponent(message);
+        const number = WHATSAPP_NUMBER.replace(/\D/g, "");
+        return number ? `https://wa.me/${number}?text=${text}` : `https://wa.me/?text=${text}`;
+      }
+
+      function getMailtoUrl(subject, body) {
+        return `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      }
+
+      function updateWhatsappEnquiry() {
+        const url = getWhatsappUrl(getEnquiryMessage());
+        document.querySelectorAll("[data-whatsapp-link]").forEach((link) => {
+          link.setAttribute("href", url);
+        });
+        document.getElementById("lead-whatsapp").setAttribute("href", getWhatsappUrl(getLeadMessage()));
+        document.getElementById("custom-whatsapp").setAttribute("href", getWhatsappUrl(getCustomMessage()));
+      }
+
+      function openModal(modal) {
+        modal.classList.add("open");
+        modal.setAttribute("aria-hidden", "false");
+        document.body.classList.add("modal-open");
+      }
+
+      function closeModal(modal) {
+        modal.classList.remove("open");
+        modal.setAttribute("aria-hidden", "true");
+        if (!document.querySelector(".modal.open") && !document.getElementById("lightbox").classList.contains("open")) {
+          document.body.classList.remove("modal-open");
+        }
+      }
+
+      function openLightbox(index) {
+        selectedPhotoIndex = index;
+        updateLightbox();
+        const lightbox = document.getElementById("lightbox");
+        lightbox.classList.add("open");
+        lightbox.setAttribute("aria-hidden", "false");
+        document.body.classList.add("modal-open");
+      }
+
+      function closeLightbox() {
+        selectedPhotoIndex = null;
+        const lightbox = document.getElementById("lightbox");
+        lightbox.classList.remove("open");
+        lightbox.setAttribute("aria-hidden", "true");
+        if (!document.querySelector(".modal.open")) {
+          document.body.classList.remove("modal-open");
+        }
+      }
+
+      function updateLightbox() {
+        const photo = photos[selectedPhotoIndex];
+        document.getElementById("lightbox-img").src = photo.url;
+        document.getElementById("lightbox-category").textContent = `${photo.category} collection`;
+        document.getElementById("lightbox-count").textContent = `${selectedPhotoIndex + 1} / ${photos.length}`;
+      }
+
+      function moveLightbox(offset) {
+        if (selectedPhotoIndex === null) return;
+        selectedPhotoIndex = (selectedPhotoIndex + offset + photos.length) % photos.length;
+        updateLightbox();
+      }
+
+      renderStories();
+      renderGalleryTabs();
+      renderPhotos();
+      renderFilms();
+      renderPackages();
+      renderAddOns();
+      renderEventOptions();
+      updateWhatsappEnquiry();
+
+      const heroFeatureVideo = document.getElementById("hero-feature-video");
+      const heroSoundToggle = document.getElementById("hero-sound-toggle");
+
+      function initVideoThumbnails() {
+        document.querySelectorAll("video").forEach((video) => {
+          if (video.dataset.thumbnailReady === "true") return;
+
+          const showPreviewFrame = () => {
+            if (!video.paused) return;
+            const safeTime = Number.isFinite(video.duration)
+              ? Math.min(VIDEO_THUMBNAIL_TIME, Math.max(0, video.duration - 0.01))
+              : VIDEO_THUMBNAIL_TIME;
+
+            try {
+              if (Math.abs(video.currentTime - safeTime) > 0.01) {
+                video.currentTime = safeTime;
+              }
+              video.dataset.thumbnailReady = "true";
+            } catch (error) {
+              video.dataset.thumbnailReady = "true";
+            }
+          };
+
+          if (video.readyState >= 1) {
+            showPreviewFrame();
+          } else {
+            video.addEventListener("loadedmetadata", showPreviewFrame, { once: true });
+          }
+          video.load();
+        });
+      }
+
+      function pauseOtherVideos(activeVideo) {
+        document.querySelectorAll("video").forEach((video) => {
+          if (video !== activeVideo && !video.paused) {
+            video.pause();
+          }
+        });
+      }
+
+      async function playVideoWithSound(video) {
+        if (!video) return;
+        pauseOtherVideos(video);
+        video.muted = false;
+        video.volume = 1;
+        try {
+          await video.play();
+          video.closest(".video-card")?.classList.add("is-playing");
+          if (video === heroFeatureVideo && heroSoundToggle) {
+            heroSoundToggle.textContent = "Pause Video";
+            heroSoundToggle.setAttribute("aria-pressed", "true");
+          }
+        } catch (error) {
+          video.controls = true;
+        }
+      }
+
+      function initManualVideoPlayback() {
+        document.querySelectorAll(".video-card video, #hero-feature-video").forEach((video) => {
+          video.addEventListener("play", () => {
+            pauseOtherVideos(video);
+            video.muted = false;
+            video.volume = 1;
+            video.closest(".video-card")?.classList.add("is-playing");
+            if (video === heroFeatureVideo && heroSoundToggle) {
+              heroSoundToggle.textContent = "Pause Video";
+              heroSoundToggle.setAttribute("aria-pressed", "true");
+            }
+          });
+
+          video.addEventListener("pause", () => {
+            video.closest(".video-card")?.classList.remove("is-playing");
+            if (video === heroFeatureVideo && heroSoundToggle) {
+              heroSoundToggle.textContent = "Play Video";
+              heroSoundToggle.setAttribute("aria-pressed", "false");
+            }
+          });
+
+          video.addEventListener("ended", () => {
+            video.closest(".video-card")?.classList.remove("is-playing");
+            if (video === heroFeatureVideo && heroSoundToggle) {
+              heroSoundToggle.textContent = "Play Video";
+              heroSoundToggle.setAttribute("aria-pressed", "false");
+            }
+          });
+
+          video.addEventListener("click", () => {
+            if (video.paused) {
+              playVideoWithSound(video);
+            } else {
+              video.pause();
+            }
+          });
+        });
+      }
+
+      if (heroFeatureVideo && heroSoundToggle) {
+        heroSoundToggle.addEventListener("click", async () => {
+          if (heroFeatureVideo.paused) {
+            await playVideoWithSound(heroFeatureVideo);
+          } else {
+            heroFeatureVideo.pause();
+          }
+        });
+      }
+
+      initVideoThumbnails();
+      initManualVideoPlayback();
+
+      setTimeout(() => openModal(document.getElementById("lead-modal")), 2000);
+
+      document.getElementById("scroll-top").addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+
+      document.addEventListener("click", (event) => {
+        const closeTarget = event.target.closest("[data-close-modal]");
+        if (closeTarget) {
+          closeModal(closeTarget.closest(".modal"));
+        }
+
+        if (event.target.closest("[data-open-enquiry]")) {
+          openModal(document.getElementById("enquiry-modal"));
+        }
+
+        const playButton = event.target.closest("[data-play-video]");
+        if (playButton) {
+          event.preventDefault();
+          const video = playButton.closest(".video-card")?.querySelector("video");
+          playVideoWithSound(video);
+        }
+
+        const tab = event.target.closest("[data-category]");
+        if (tab) {
+          activeCategory = tab.dataset.category;
+          renderGalleryTabs();
+          renderPhotos();
+        }
+
+        const photoTile = event.target.closest("[data-photo-index]");
+        if (photoTile) {
+          openLightbox(Number(photoTile.dataset.photoIndex));
+        }
+
+        const addon = event.target.closest("[data-addon]");
+        if (addon) {
+          const id = addon.dataset.addon;
+          selectedServices.has(id) ? selectedServices.delete(id) : selectedServices.add(id);
+          renderAddOns();
+          updateWhatsappEnquiry();
+        }
+
+        const eventType = event.target.closest("[data-event-type]");
+        if (eventType) {
+          selectedEventType = eventType.dataset.eventType;
+          renderEventOptions();
+          updateWhatsappEnquiry();
+        }
+      });
+
+      document.getElementById("lead-form").addEventListener("input", updateWhatsappEnquiry);
+      document.getElementById("enquiry-form").addEventListener("input", updateWhatsappEnquiry);
+      document.getElementById("custom-form").addEventListener("input", updateWhatsappEnquiry);
+      document.getElementById("lead-whatsapp").addEventListener("click", updateWhatsappEnquiry);
+      document.getElementById("whatsapp-enquiry").addEventListener("click", updateWhatsappEnquiry);
+      document.getElementById("custom-whatsapp").addEventListener("click", updateWhatsappEnquiry);
+
+      document.getElementById("lead-form").addEventListener("submit", (event) => {
+        event.preventDefault();
+        const form = new FormData(event.currentTarget);
+        const subject = `Lead Inquiry - ${form.get("name")}`;
+
+        window.location.href = getMailtoUrl(subject, getLeadMessage());
+        closeModal(document.getElementById("lead-modal"));
+      });
+
+      document.getElementById("enquiry-form").addEventListener("submit", (event) => {
+        event.preventDefault();
+        const form = new FormData(event.currentTarget);
+        const subject = `Enquiry: ${selectedEventType} - ${form.get("name")}`;
+        const body = [
+          `Name: ${form.get("name")}`,
+          `Phone: ${form.get("phone")}`,
+          `Address: ${form.get("address")}`,
+          `Event Type: ${selectedEventType}`,
+          "",
+          "Message:",
+          form.get("message") || ""
+        ].join("\n");
+
+        window.location.href = getMailtoUrl(subject, body);
+        closeModal(document.getElementById("enquiry-modal"));
+      });
+
+      document.getElementById("custom-form").addEventListener("submit", (event) => {
+        event.preventDefault();
+        window.location.href = getMailtoUrl("Custom Quote Inquiry", getCustomMessage());
+      });
+
+      document.getElementById("lightbox").addEventListener("click", (event) => {
+        if (event.target.id === "lightbox") closeLightbox();
+      });
+
+      document.getElementById("lightbox-close").addEventListener("click", closeLightbox);
+      document.getElementById("lightbox-prev").addEventListener("click", () => moveLightbox(-1));
+      document.getElementById("lightbox-next").addEventListener("click", () => moveLightbox(1));
+      document.getElementById("lightbox-frame").addEventListener("click", (event) => event.stopPropagation());
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+          document.querySelectorAll(".modal.open").forEach(closeModal);
+          closeLightbox();
+        }
+        if (document.getElementById("lightbox").classList.contains("open")) {
+          if (event.key === "ArrowLeft") moveLightbox(-1);
+          if (event.key === "ArrowRight") moveLightbox(1);
+        }
+      });
+    </script>
+  </body>
+</html>
